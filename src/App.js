@@ -1,25 +1,153 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { Switch, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@fortawesome/fontawesome-free/js/all.js";
+import "./App.css";
 
-function App() {
+import AuthService from "./services/auth.service";
+
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import ProductCategoryList from "./components/ProductCategoryList";
+import ProductsList from "./components/ProductsList";
+import ProductList from "./components/admin/ProductList";
+import Product from "./components/admin/Product";
+import UserList from "./components/admin/UserList";
+import AddProduct from "./components/admin/AddProduct";
+import CategoryList from "./components/admin/CategoryList";
+import Category from "./components/admin/Category";
+import AddCategory from "./components/admin/AddCategory";
+
+
+const App = () => {  
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
+
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      setCurrentUser(user);      
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+  }, []);
+
+  const logOut = () => {
+    AuthService.logout();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <Link to={"/"} className="navbar-brand">
+          Supermarket
+        </Link>
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={"/home"} className="nav-link">
+              Home
+            </Link>
+          </li>                    
+
+          {showAdminBoard && (            
+              <li className="nav-item">
+                <Link to={"/admin/addCategory"} className="nav-link">
+                  AddCategory
+                </Link>
+              </li>                         
+           
+          )}
+
+        {showAdminBoard ? (
+          <div className="navbar-nav ml-auto"> 
+              <li className="nav-item">
+                <Link to={"/admin/categories"} className="nav-link">
+                  Categories
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/admin/addProduct"} className="nav-link">
+                  AddProduct
+                </Link>
+              </li>             
+              <li className="nav-item">
+                <Link to={"/admin/products"} className="nav-link">
+                  Products
+                </Link>
+              </li>                          
+              <li className="nav-item">
+                <Link to={"/admin/users"} className="nav-link">
+                  Users
+                </Link>
+              </li>                     
+          </div>
+        ) : (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+            <Link to={"/categories"} className="nav-link">
+              Product Categories
+            </Link>
+          </li> 
+          </div>
+        )}
+          
+        </div>
+
+        {currentUser ? (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/profile"} className="nav-link">
+                {currentUser.username}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <a href="/login" className="nav-link" onClick={logOut}>
+                LogOut
+              </a>
+            </li>
+          </div>
+        ) : (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to={"/register"} className="nav-link">
+                Sign Up
+              </Link>
+            </li>
+          </div>
+        )}
+        
+      </nav>
+
+      <div className="container mt-3">
+        
+        <Switch>
+          <Route exact path={["/", "/home"]} component={Home} />
+          <Route exact path="/categories" component={ProductCategoryList} />
+          <Route exact path="/categories/:id" component={ProductsList} />
+          <Route exact path="/admin/addCategory" component={AddCategory} />          
+          <Route exact path="/admin/products" component={ProductList} />
+          <Route exact path="/admin/products/:id" component={Product} />
+          <Route exact path="/admin/categories" component={CategoryList} />
+          <Route exact path="/admin/categories/:id" component={Category} />
+          <Route exact path="/admin/addProduct" component={AddProduct} />
+          <Route exact path="/admin/users" component={UserList} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/profile" component={Profile} />          
+        </Switch>
+               
+      </div>
     </div>
   );
-}
+};
 
 export default App;
