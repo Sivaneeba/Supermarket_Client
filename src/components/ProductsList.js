@@ -3,9 +3,10 @@ import ProductService from "../services/product.service";
 import PCategoryService from "../services/pCategory.service";
 import { useHistory } from "react-router-dom";
 import ProductCart from './layout/productCart'
-import {Stack,Button} from '@material-ui/core/';
+import {Grid,Button} from '@material-ui/core/';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import Paper from '@material-ui/core/Paper';
+import { styled } from '@material-ui/core/styles';
 const ProductsList = props => {
   const [products, setProducts] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
@@ -52,12 +53,12 @@ const ProductsList = props => {
         console.log(e);
       });
   };
-  // const Item = styled(Paper)(({ theme }) => ({
-  //   ...theme.typography.body2,
-  //   padding: theme.spacing(1),
-  //   textAlign: 'center',
-  //   color: theme.palette.text.secondary,
-  // }));
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
   let history = useHistory();
 
   return (
@@ -65,7 +66,7 @@ const ProductsList = props => {
       <div>
         <h4>Products List</h4>
 
-          <Stack direction="row" spacing={2}>
+          <Grid container direction="row" spacing={4}>
           {products &&
             products.map((product, index) => (
               // <li
@@ -77,12 +78,12 @@ const ProductsList = props => {
               // >
               //   {product.name}
               // </li>
-           <ProductCart  {...product}/>
-  // <Item> </Item>
+          
+  < Grid item xs={12} sm={12}md={6}lg={3} xl={3}> <ProductCart  {...product}/> </Grid>
 
 
                          ))}
-       </Stack>
+       </Grid>
         <br/>
 
         {/* <button  onClick={() => history.goBack()}>Back</button> */}
