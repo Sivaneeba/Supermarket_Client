@@ -4,7 +4,9 @@
     color:#69A432;
     border:none;
     font-weight: 600;
-    
+border-color: #ffff;
+text-decoration: none;
+
   }
   
  
@@ -13,11 +15,16 @@
     color:#69A432;
     text-transform: none;
     border:none;
+    border-color: #ffff;
 
   }
-  .btn:active {
-    color:#75e20f;
+  .active {
+    color:#69A432;
     font-weight: 700;
     border:none;
+    border-bottom: 3px solid #69A432;
+    transition: border-bottom .5s ease-in-out;
 
   }
+  
+  

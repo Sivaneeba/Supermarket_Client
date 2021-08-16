@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import {Box,Grid,Button} from '@material-ui/core/';
+import {Box,Grid} from '@material-ui/core/';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -18,7 +18,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Logo from '../../assets/logo.png'
 import AuthService from "../../services/auth.service";
 import  { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory,NavLink } from "react-router-dom";
 
 import './navbar.css'
 const Search = styled('div')(({ theme }) => ({
@@ -65,7 +65,7 @@ export default function PrimarySearchAppBar() {
     const [showAdminBoard, setShowAdminBoard] = useState(false);
     const [currentUser, setCurrentUser] = useState(undefined);
     let history = useHistory();
-
+const [btn,activebtn]=useState(false)
     useEffect(() => {
       const user = AuthService.getCurrentUser();
   
@@ -206,15 +206,14 @@ export default function PrimarySearchAppBar() {
   justifyContent="center"
   alignItems="center"
 >
-          <Button href={"/home"}  class="btn">
+          <NavLink to={"/home"} exact className="btn" activeClassName="active">
               Home
-            </Button>
+            </NavLink>
                               
-
           {showAdminBoard && (            
-                <Button href={"/admin/addCategory"} class="btn">
+                <NavLink to={"/admin/addCategory"} className="btn">
                   AddCategory
-                </Button>
+                </NavLink>
                                       
            
           )}
@@ -227,31 +226,31 @@ export default function PrimarySearchAppBar() {
   justifyContent="center"
   alignItems="center"
 >
-                <Button href={"/admin/categories"} class="btn">
+                <NavLink to={"/admin/categories"} className="btn">
                   Categories
-                </Button>
+                </NavLink>
               
               
-                <Button href={"/admin/addProduct"} class="btn">
+                <NavLink to={"/admin/addProduct"} className="btn">
                   AddProduct
-                </Button>
+                </NavLink>
                            
               
-                <Button href={"/admin/products"} class="btn">
+                <NavLink to={"/admin/products"} className="btn">
                   Products
-                </Button>
+                </NavLink>
               
-                <Button href={"/admin/users"} class="btn">
+                <NavLink to={"/admin/users"} className="btn">
                   Users
-                </Button>
+                </NavLink>
               </Grid>                   
           </div>
         ) : (
           <div >
             
-            <Button href={"/categories"} class="btn">
+            <NavLink to={"/categories"} className="btn">
               Product Categories
-            </Button>
+            </NavLink>
           
           </div>
         )}
@@ -265,27 +264,27 @@ export default function PrimarySearchAppBar() {
   justifyContent="center"
   alignItems="center"
 >
-              <Button href={"/profile"} class="btn">
+              <NavLink to={"/profile"} className="btn">
                 {currentUser.username}
-              </Button>
+              </NavLink>
             
-              <Button href="/login"  onClick={logOut} class="btn">
+              <NavLink to="/login"  onClick={logOut} className="btn">
                 LogOut
-              </Button>
+              </NavLink>
  </Grid>           
           </div>
         ) : (
           <div >
            
-              <Button href={"/login"} class="btn">
+              <NavLink to={"/login"} className="btn">
                 Login
-              </Button>
+              </NavLink>
             
 
             
-              <Button href={"/register"} class="btn">
+              <NavLink to={"/register"} className="btn">
                 Sign Up
-              </Button>
+              </NavLink>
           </div>
         )}</Grid>
             <IconButton
