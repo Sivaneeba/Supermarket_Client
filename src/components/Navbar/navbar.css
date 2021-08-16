@@ -1,0 +1,23 @@
+.btn {
+    
+    text-transform: none;
+    color:#69A432;
+    border:none;
+    font-weight: 600;
+    
+  }
+  
+ 
+  .btn:hover {
+    font-weight: 700;
+    color:#69A432;
+    text-transform: none;
+    border:none;
+
+  }
+  .btn:active {
+    color:#75e20f;
+    font-weight: 700;
+    border:none;
+
+  }

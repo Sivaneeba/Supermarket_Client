@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import "./App.css";
-
+import Logo from '../src/assets/logo.png'
 import AuthService from "./services/auth.service";
 
 import Login from "./components/Login";
@@ -20,7 +20,7 @@ import AddProduct from "./components/admin/AddProduct";
 import CategoryList from "./components/admin/CategoryList";
 import Category from "./components/admin/Category";
 import AddCategory from "./components/admin/AddCategory";
-
+import Navbar from './components/Navbar/navbar'
 
 const App = () => {  
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -41,9 +41,11 @@ const App = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+<Navbar/>
+<br/>
+      {/* <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
-          Supermarket
+          <img  src={Logo} alt='' style={{height:70}}/>
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
@@ -125,7 +127,7 @@ const App = () => {
           </div>
         )}
         
-      </nav>
+      </nav> */}
 
       <div className="container mt-3">
         
