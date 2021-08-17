@@ -1,44 +1,59 @@
-import * as React from 'react';
-import Box from '@material-ui/core/Box';
+import { React, useState, } from 'react';
+import { Box, Grid } from '@material-ui/core/';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
+
 
 export default function BasicCard(props) {
-    const { image,name, count, price, description } = props
+    const { image, name, count, price, description } = props
+    const [counts, setCounts] = useState(0);
+   
     return (
-        <Card sx={{ minWidth: 275 }}>
+        <Card sx={{
+            minWidth: 275, boxShadow: "1px 1px 10px 10px #F7F8FA",
+            borderRadius: 5
+        }}>
+            <img src={"http://localhost:8080/" + image} alt="" style={{ height: 220, width: '100%' }} />
             <CardContent>
-                <img src={image} alt="" />
-                <Typography sx={{ fontWeight: 'bold', m: 1, fontSize: 24 }} color="text.secondary" gutterBottom>
+
+                <Typography sx={{ fontWeight: 'bold', fontSize: 21 }} >
                     {name}
                 </Typography>
-                <Typography sx={{ fontWeight: 'light', m: 1,fontSize: 18  }} color="text.secondary" gutterBottom>
+                <Typography sx={{ fontWeight: 'light', fontSize: 15,color:'grey' }} >
                     {description}
                 </Typography>
-                <Typography sx={{ mb: 1.5 , m: 1}} color="text.secondary">
-                    {count}
-                </Typography>
-                <Typography variant="h5" component="div" sx={{ color: 'text.primary', fontSize: 34, fontWeight: 'bold', fontFamily: 'Monospace', m: 1 }}>
-                    Rs.{price}
-                </Typography>
-
                 
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="baseline"
+                >
+                    <Typography sx={{ fontSize: 27, fontWeight: 'bold', fontFamily: 'Monospace' }}>
+                        Rs.{price}
+                    </Typography>
+                    {/* <Typography sx={{ mb: 1.5 , }} >
+                    {count} 
+                </Typography> */}
+                    <div style={{ display: 'flex' }}><button  onClick={() => {counts >= 0 ?setCounts(counts + 1): setCounts(0 + 1)}} style={{ borderStyle: 'none', backgroundColor: '#07b558', fontSize: 20, margin: 3, color: 'white', padding: "1px 10px 1px 10px", fontWeight: 'bold',borderRadius:5 }}>+</button> {counts >= 0 ? <h5 style={{ margin: 3, padding: "4px 10px 4px 10px" }}>{counts}</h5> : <h5 style={{ margin: 3, padding: "4px 10px 4px 10px" }}>0</h5>}
+                        <button onClick={() =>  counts >= 0 ?setCounts(counts - 1): 0} style={{ borderStyle: 'none', backgroundColor: '#ed493e', fontSize: 20, margin: 3, color: 'white', padding: "1px 10px 1px 10px", fontWeight: 'bold',borderRadius:5 }}>-</button></div>
+                </Grid>
+
             </CardContent>
             <CardActions>
-                <Button startIcon={<ShoppingCartIcon />} sx={{ color: 'white', fontSize: 15, fontWeight: 'bold',padding:"5px 13px 5px 15px",textTransform: 'none', backgroundColor:"#07b558", m: 1}} size="small">Add to Card</Button>
-            </CardActions>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="baseline"
+                >        <Typography sx={{ fontWeight: 'light', fontSize: 18 }} >
+                        Rs.{counts >= 0 ?price * counts:price * 0}
+                    </Typography>        <Button startIcon={<ShoppingCartIcon />} style={{borderStyle: 'none', color: 'white', fontSize: 16, fontWeight: 'bold', padding: "4px 13px 4px 13px", textTransform: 'none', backgroundColor: "#07b558" ,borderRadius:6}} size="small">Add to Card</Button>
+                </Grid>   </CardActions>
         </Card>
     );
 }

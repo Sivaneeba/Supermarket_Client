@@ -2,7 +2,7 @@
     
     text-transform: none;
     color:#69A432;
-    border:none;
+    border-style:none;
     font-weight: 600;
 border-color: #ffff;
 text-decoration: none;
@@ -14,14 +14,14 @@ text-decoration: none;
     font-weight: 700;
     color:#69A432;
     text-transform: none;
-    border:none;
+    border-style:none;
     border-color: #ffff;
 
   }
   .active {
     color:#69A432;
     font-weight: 700;
-    border:none;
+    border-style:none;
     border-bottom: 3px solid #69A432;
     transition: border-bottom .5s ease-in-out;
 
