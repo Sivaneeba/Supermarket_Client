@@ -21,6 +21,7 @@ import CategoryList from "./components/admin/CategoryList";
 import Category from "./components/admin/Category";
 import AddCategory from "./components/admin/AddCategory";
 import Navbar from './components/Navbar/navbar'
+import Cart from "./components/user/Cart";
 
 const App = () => {  
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -144,7 +145,8 @@ const App = () => {
           <Route exact path="/admin/users" component={UserList} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/profile" component={Profile} />          
+          <Route exact path="/profile" component={Profile} />  
+          <Route exact path="/user/carts" component={Cart}/>        
         </Switch>
                
       </div>
