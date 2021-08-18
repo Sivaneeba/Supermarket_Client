@@ -6,11 +6,36 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import authService from "../../services/auth.service";
+import cartService from "../../services/cart.service";
 
 
 export default function BasicCard(props) {
-    const { image, name, count, price, description } = props
+    const currentUser = authService.getCurrentUser();
+    let userId = currentUser.id;
+    let quantity = 1;   
+      
+    const [submitted, setSubmitted] = useState(false); 
+    const { image, name, count, price, description, id } = props
     const [counts, setCounts] = useState(0);
+
+    const saveCart = () => {
+        var data = {
+          userId: userId,
+          quantity: quantity,
+          productId: id
+        };
+    
+        cartService.create(data)
+          .then(response => {        
+            setSubmitted(true);                    
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      };
+    
    
     return (
         <Card sx={{
@@ -52,7 +77,7 @@ export default function BasicCard(props) {
                     alignItems="baseline"
                 >        <Typography sx={{ fontWeight: 'light', fontSize: 18 }} >
                         Rs.{counts >= 0 ?price * counts:price * 0}
-                    </Typography>        <Button startIcon={<ShoppingCartIcon />} style={{borderStyle: 'none', color: 'white', fontSize: 16, fontWeight: 'bold', padding: "4px 13px 4px 13px", textTransform: 'none', backgroundColor: "#07b558" ,borderRadius:6}} size="small">Add to Card</Button>
+                    </Typography>        <Button href="/user/carts" startIcon={<ShoppingCartIcon />} style={{borderStyle: 'none', color: 'white', fontSize: 16, fontWeight: 'bold', padding: "4px 13px 4px 13px", textTransform: 'none', backgroundColor: "#07b558" ,borderRadius:6}} size="small" onClick={() => {saveCart()}}>Add to Card</Button>
                 </Grid>   </CardActions>
         </Card>
     );

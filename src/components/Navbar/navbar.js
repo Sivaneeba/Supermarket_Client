@@ -267,6 +267,9 @@ const [btn,activebtn]=useState(false)
               <NavLink to={"/profile"} className="btn">
                 {currentUser.username}
               </NavLink>
+              <NavLink to={"/user/carts"} className="btn">
+                Cart
+              </NavLink>
             
               <NavLink to="/login"  onClick={logOut} className="btn">
                 LogOut
