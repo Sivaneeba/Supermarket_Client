@@ -9,6 +9,8 @@ import AuthService from "./services/auth.service";
 import { createBrowserHistory } from "history";
 
 import Login from "./components/Login";
+import LoginNew from "./components/Login/Login";
+
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
@@ -147,6 +149,7 @@ const App = () => {
           <Route exact path="/admin/addProduct" component={AddProduct} />
           <Route exact path="/admin/users" component={UserList} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/login_new" component={LoginNew} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />  
           <Route exact path="/user/carts" component={Cart}/>        
