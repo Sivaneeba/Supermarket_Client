@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Redirect ,Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import "./App.css";
 import Logo from '../src/assets/logo.png'
 import AuthService from "./services/auth.service";
+import { createBrowserHistory } from "history";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -22,6 +23,8 @@ import Category from "./components/admin/Category";
 import AddCategory from "./components/admin/AddCategory";
 import Navbar from './components/Navbar/navbar'
 import Cart from "./components/user/Cart";
+import Admin from './components/admin/UserDashbord/DashboardLayout'
+const hist = createBrowserHistory();
 
 const App = () => {  
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -147,6 +150,13 @@ const App = () => {
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />  
           <Route exact path="/user/carts" component={Cart}/>        
+          <Router history={hist}>
+                <Switch>
+                    <Route path="/Adashboard" component={Admin} />
+                    <Redirect from="/d" to="/Adashboard" />
+                    
+                </Switch>
+            </Router>
         </Switch>
                
       </div>

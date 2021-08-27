@@ -1,0 +1,30 @@
+.btn {
+    
+    text-transform: none;
+    color:#69A432;
+    border-style:none;
+    font-weight: 600;
+border-color: #ffff;
+text-decoration: none;
+
+  }
+  
+ 
+  .btn:hover {
+    font-weight: 700;
+    color:#69A432;
+    text-transform: none;
+    border-style:none;
+    border-color: #ffff;
+
+  }
+  .active {
+    color:#69A432;
+    font-weight: 700;
+    border-style:none;
+    border-bottom: 3px solid #69A432;
+    transition: border-bottom .5s ease-in-out;
+
+  }
+  
+  
