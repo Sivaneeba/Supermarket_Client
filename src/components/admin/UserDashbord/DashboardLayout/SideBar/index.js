@@ -22,11 +22,13 @@ import {
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
-
+import AuthService from "../../../../../services/auth.service";
+import  { useState } from "react";
+import { useHistory,NavLink } from "react-router-dom";
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  name: 'Satharuban Selvasundaram'
 };
 
 const items = [
@@ -74,7 +76,18 @@ const items = [
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  let history = useHistory();
+const [btn,activebtn]=useState(false)
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
 
+    if (user) {
+      setCurrentUser(user);      
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+  }, []);
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
@@ -105,11 +118,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             width: 64,
             height: 64
           }}
-          to="/app/account"
+          to="/Adashboard/account"
         />
         <Typography
           color="textPrimary"
-          variant="h5"
+          variant="h6"
+          sx={{fontSize:15}}
         >
           {user.name}
         </Typography>

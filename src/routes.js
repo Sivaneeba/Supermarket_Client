@@ -1,6 +1,9 @@
 import DashboardPage from './components/Login';
 // import SettingsPage from "./pages/Home";
-import MyAccount from "./components/Profile";
+import MyAccount from "./components/admin/Account";
+import Products from "./components/admin/Product";
+import Customers from "./components/admin/UserList";
+
 // import Orders from "./views/Orders";
 // import Form from "../src/components/core/Form";
 // import OngonigForm from "../src/components/c/ore/OngoingForm";
@@ -29,15 +32,15 @@ import MyAccount from "./components/Profile";
     layout: "/Adashboard"
   },
   {
-    path: "/orders",
-    component: DashboardPage,
-    layout: "/dashboard"
+    path: "/products",
+    component: Products,
+    layout: "/Adashboard"
   },
-  // {
-  //   path: "/settings",
-  //   component: Settings,
-  //   layout: "/Udashboard"
-  // },
+  {
+    path: "/customers",
+    component: Customers,
+    layout: "/Adashboard"
+  },
   // {
   //   path: "/form",
   //   // component: Form,
