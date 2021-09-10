@@ -12,20 +12,22 @@ import {
 } from '@material-ui/core';
 import FacebookIcon from '../../icons/Facebook';
 import GoogleIcon from '../../icons/Google';
-
+import "./Login.css"
 const Login = () => {
   const navigate = useHistory();
 
   return (
-    <>
+    <div className="log" >
      
-      <Box
+      <Box  
         sx={{
-          backgroundColor: 'background.default',
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          justifyContent: 'center'
+          // backgroundColor: 'background.default',
+          // display: 'flex',
+          // flexDirection: 'column',
+          // height: '100vh',
+          // weight:'100vh',
+          // justifyContent: 'center'
+         
         }}
       >
         <Container maxWidth="sm">
@@ -174,7 +176,7 @@ const Login = () => {
           </Formik>
         </Container>
       </Box>
-    </>
+    </div>
   );
 };
 
