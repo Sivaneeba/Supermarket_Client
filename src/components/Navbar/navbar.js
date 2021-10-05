@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import {Box,Grid} from '@material-ui/core/';
+import { Box, Grid } from '@material-ui/core/';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -17,9 +17,9 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Logo from '../../assets/logo.png'
 import AuthService from "../../services/auth.service";
-import  { useState, useEffect } from "react";
-import { useHistory,NavLink } from "react-router-dom";
-
+import { useState, useEffect } from "react";
+import { useHistory, NavLink } from "react-router-dom";
+import Categories from './categories'
 import './navbar.css'
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -62,22 +62,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-    const [showAdminBoard, setShowAdminBoard] = useState(false);
-    const [currentUser, setCurrentUser] = useState(undefined);
-    let history = useHistory();
-const [btn,activebtn]=useState(false)
-    useEffect(() => {
-      const user = AuthService.getCurrentUser();
-  
-      if (user) {
-        setCurrentUser(user);      
-        setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-      }
-    }, []);
-  
-    const logOut = () => {
-      AuthService.logout();
-    };
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  let history = useHistory();
+  const [btn, activebtn] = useState(false)
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      setCurrentUser(user);
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+  }, []);
+
+  const logOut = () => {
+    AuthService.logout();
+  };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -118,8 +118,14 @@ const [btn,activebtn]=useState(false)
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+       {currentUser ?(<MenuItem onClick={handleMenuClose}><NavLink to={"/profile"} className="menu-btn">
+        {currentUser.username}
+      </NavLink></MenuItem>):("")}
+      {/* <MenuItem onClick={handleMenuClose} className="menu-btn">Profile</MenuItem> */}
+      <MenuItem onClick={handleMenuClose}>
+        <NavLink to="/login" onClick={logOut} className="menu-btn">
+          LogOut
+        </NavLink></MenuItem>
     </Menu>
   );
 
@@ -177,19 +183,12 @@ const [btn,activebtn]=useState(false)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{backgroundColor:'white', boxShadow: "1px 1px 10px 10px #F7F8FA"}}>
+      <AppBar position="absolute" style={{ backgroundColor: 'white', }}>
         <Toolbar>
-        <img  src={Logo} alt='' style={{height:70}}/>
+          <img src={Logo} alt='' style={{ height: 60 }} />
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            Material-UI
-          </Typography>
-          <Search>
+
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -197,112 +196,109 @@ const [btn,activebtn]=useState(false)
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Grid
-  container
-  direction="row"
-  justifyContent="center"
-  alignItems="center"
->
-          <NavLink to={"/home"} exact className="btn" activeClassName="active">
-              Home
-            </NavLink>
-                              
-          {showAdminBoard && (            
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <NavLink to={"/home"} exact className="btn" activeClassName="active">
+                Home
+              </NavLink>
+
+              {showAdminBoard && (
                 <NavLink to={"/admin/addCategory"} className="btn">
                   AddCategory
                 </NavLink>
-                                      
-           
-          )}
 
-        {showAdminBoard ? (
-          <div > 
-               <Grid
-  container
-  direction="row"
-  justifyContent="center"
-  alignItems="center"
->
-                <NavLink to={"/admin/categories"} className="btn">
-                  Categories
-                </NavLink>
-              
-              
-                <NavLink to={"/admin/addProduct"} className="btn">
-                  AddProduct
-                </NavLink>
-                           
-              
-                <NavLink to={"/admin/products"} className="btn">
-                  Products
-                </NavLink>
-              
-                <NavLink to={"/admin/users"} className="btn">
-                  Users
-                </NavLink>
-              </Grid>                   
-          </div>
-        ) : (
-          <div >
-            
-            <NavLink to={"/categories"} className="btn">
-              Product Categories
-            </NavLink>
-          
-          </div>
-        )}
-          
 
-        {currentUser ? (
-          <div >
-               <Grid
-  container
-  direction="row"
-  justifyContent="center"
-  alignItems="center"
->
-              <NavLink to={"/profile"} className="btn">
-                {currentUser.username}
-              </NavLink>
-              <NavLink to={"/user/carts"} className="btn">
-                Cart
-              </NavLink>
-            
-              <NavLink to="/login"  onClick={logOut} className="btn">
-                LogOut
-              </NavLink>
- </Grid>           
-          </div>
-        ) : (
-          <div >
-           
-              <NavLink to={"/login"} className="btn">
-                Login
-              </NavLink>
-            
+              )}
 
-            
-              <NavLink to={"/register"} className="btn">
-                Sign Up
-              </NavLink>
-          </div>
-        )}</Grid>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+              {showAdminBoard ? (
+                <div >
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <NavLink to={"/admin/categories"} className="btn">
+                      Categories
+                    </NavLink>
+
+
+                    <NavLink to={"/admin/addProduct"} className="btn">
+                      AddProduct
+                    </NavLink>
+
+
+                    <NavLink to={"/admin/products"} className="btn">
+                      Products
+                    </NavLink>
+
+                    <NavLink to={"/admin/users"} className="btn">
+                      Users
+                    </NavLink>
+                  </Grid>
+                </div>
+              ) : (
+                <div >
+
+                  <NavLink to={"/categories"} className="btn">
+                    Product Categories
+                  </NavLink>
+
+                </div>
+              )}
+
+
+              {currentUser ? (
+                <div >
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+
+                    <NavLink to={"/user/carts"} className="btn">
+                      Cart
+                    </NavLink>
+
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
+                      // color="#69A432" 
+                      sx={{color:'#69A432'}}
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </Grid>
+                </div>
+              ) : (
+                <div >
+
+                  <NavLink to={"/login"} className="btn">
+                    Login
+                  </NavLink>
+
+
+
+                  <NavLink to={"/register"} className="btn">
+                    Sign Up
+                  </NavLink>
+                </div>
+              )}</Grid>
+
           </Box>
-         
+
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -314,8 +310,9 @@ const [btn,activebtn]=useState(false)
             >
               <MoreIcon />
             </IconButton>
-          </Box> 
+          </Box>
         </Toolbar>
+        {/* <Categories/> */}
       </AppBar>
       {renderMobileMenu}
       {renderMenu}

@@ -27,4 +27,13 @@ padding:5px;
 
   }
   
-  
+  .menu-btn {
+    
+    text-transform: none;
+    color:#726f6f;
+    border-style:none;
+    font-weight: 400;
+border-color: #ffff;
+text-decoration: none;
+padding:5px;
+  }
