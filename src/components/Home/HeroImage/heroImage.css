@@ -1,0 +1,13 @@
+.home-top{
+    height: 100vh;
+      background: url("https://www.ugaoo.com/knowledge-center/wp-content/uploads/2017/04/feature.jpg");
+      background-size: cover;
+      background-position: center;
+      width:100%;
+      /* filter: blur(8px);
+  -webkit-filter: blur(8px); */
+  }
+  .home-txt{
+    color:rgb(255, 255, 255);
+
+  }

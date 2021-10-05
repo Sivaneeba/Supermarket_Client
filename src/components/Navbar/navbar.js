@@ -20,6 +20,7 @@ import AuthService from "../../services/auth.service";
 import { useState, useEffect } from "react";
 import { useHistory, NavLink } from "react-router-dom";
 
+import Categories from './categories'
 import './navbar.css'
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -81,6 +82,8 @@ export default function PrimarySearchAppBar() {
     AuthService.logout();    
   };
   
+    AuthService.logout();
+  };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -121,8 +124,14 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+       {currentUser ?(<MenuItem onClick={handleMenuClose}><NavLink to={"/profile"} className="menu-btn">
+        {currentUser.username}
+      </NavLink></MenuItem>):("")}
+      {/* <MenuItem onClick={handleMenuClose} className="menu-btn">Profile</MenuItem> */}
+      <MenuItem onClick={handleMenuClose}>
+        <NavLink to="/login" onClick={logOut} className="menu-btn">
+          LogOut
+        </NavLink></MenuItem>
     </Menu>
   );
 
@@ -193,6 +202,12 @@ export default function PrimarySearchAppBar() {
             Material-UI
           </Typography>
           <Search>
+      <AppBar position="absolute" style={{ backgroundColor: 'white', }}>
+        <Toolbar>
+          <img src={Logo} alt='' style={{ height: 60 }} />
+
+
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -200,7 +215,7 @@ export default function PrimarySearchAppBar() {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Grid
@@ -232,6 +247,38 @@ export default function PrimarySearchAppBar() {
                     <NavLink to={"/admin/addProduct"} className="btn">
                       AddProduct
                     </NavLink>
+
+                    <NavLink to={"/admin/products"} className="btn">
+                      Products
+                    </NavLink>
+
+              </NavLink>
+
+              {showAdminBoard && (
+                <NavLink to={"/admin/addCategory"} className="btn">
+                  AddCategory
+                </NavLink>
+
+
+              )}
+
+              {showAdminBoard ? (
+                <div >
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <NavLink to={"/admin/categories"} className="btn">
+                      Categories
+                    </NavLink>
+
+
+                    <NavLink to={"/admin/addProduct"} className="btn">
+                      AddProduct
+                    </NavLink>
+
 
                     <NavLink to={"/admin/products"} className="btn">
                       Products
@@ -277,6 +324,23 @@ export default function PrimarySearchAppBar() {
                     <NavLink to="/login" onClick={logOut} className="btn">
                       LogOut
                     </NavLink>
+
+                    <NavLink to={"/user/carts"} className="btn">
+                      Cart
+                    </NavLink>
+
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
+                      // color="#69A432" 
+                      sx={{color:'#69A432'}}
+                    >
+                      <AccountCircle />
+                    </IconButton>
                   </Grid>
                 </div>
               ) : (
@@ -285,6 +349,8 @@ export default function PrimarySearchAppBar() {
                   <NavLink to={"/login"} className="btn">
                     Login
                   </NavLink>
+
+
 
                   <NavLink to={"/register"} className="btn">
                     Sign Up
@@ -318,6 +384,7 @@ export default function PrimarySearchAppBar() {
             </IconButton>
           </Box>
         </Toolbar>
+        {/* <Categories/> */}
       </AppBar>
       {renderMobileMenu}
       {renderMenu}

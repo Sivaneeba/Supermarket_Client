@@ -38,8 +38,8 @@ export default function BasicCard(props) {
    
     return (
         <Card sx={{
-            minWidth: 275, boxShadow: "1px 1px 10px 10px #F7F8FA",
-            borderRadius: 5
+            minWidth: 200, boxShadow: "1px 1px 10px 10px #F7F8FA",
+            borderRadius: 5 
         }}>
             <img src={"http://localhost:8080/" + image} alt="" style={{ height: 220, width: '100%' }} />
             <CardContent>

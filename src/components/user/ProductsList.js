@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+<<<<<<< HEAD:src/components/user/ProductsList.js
 import ProductCart from '../layout/productCart'
 import {Grid,Button} from '@material-ui/core/';
+=======
+import ProductCart from './layout/productCart'
+import { Grid, Button, Container } from '@material-ui/core/';
+>>>>>>> ffa0428cf9cc03ad363649a0d453761d0c98ce30:src/components/ProductsList.js
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Paper from '@material-ui/core/Paper';
 import { styled } from '@material-ui/core/styles';
@@ -43,7 +48,7 @@ const ProductsList = props => {
   const setActiveProduct = (product, index) => {
     setCurrentProduct(product);
     setCurrentIndex(index);
-  };  
+  };
 
   const findByName = () => {
     productService.findByName(searchName)
@@ -64,10 +69,12 @@ const ProductsList = props => {
   let history = useHistory();
 
   return (
-            
-      <div>
-        <h4>Products List</h4>
+    <div>
+      <Container maxWidth="lg">
 
+      <h4>Products List</h4>
+
+<<<<<<< HEAD:src/components/user/ProductsList.js
           <Grid container direction="row" spacing={4}>
           {products &&
             products.map((product, index) => (
@@ -82,54 +89,34 @@ const ProductsList = props => {
               // </li>
           
   < Grid item xs={12} sm={6}md={6}lg={4} xl={3}> <ProductCart {...product}/> </Grid>
+=======
+      <Grid container direction="row" spacing={4}>
+        {products &&
+          products.map((product, index) => (
+            // <li
+            //   className={
+            //     "list-group-item " + (index === currentIndex ? "active" : "")
+            //   }
+            //   onClick={() => setActiveProduct(product, index)}
+            //   key={index}
+            // >
+            //   {product.name}
+            // </li>
+>>>>>>> ffa0428cf9cc03ad363649a0d453761d0c98ce30:src/components/ProductsList.js
+
+            < Grid item xs={12} sm={6} md={4} lg={3} xl={3}> <ProductCart  {...product} /> </Grid>
 
 
-                         ))}
-       </Grid>
-        <br/>
+          ))}
+      </Grid>
+      <br />
 
-        {/* <button  onClick={() => history.goBack()}>Back</button> */}
-        <Button startIcon={<ArrowBackIcon />} onClick={() => history.goBack()} sx={{ color: 'white', fontSize: 14, fontWeight: 'small',padding:"5px 13px 5px 15px",textTransform: 'none', backgroundColor:"#07b558", m: 1}} size="small">Back</Button>
+      {/* <button  onClick={() => history.goBack()}>Back</button> */}
+      <Button startIcon={<ArrowBackIcon />} onClick={() => history.goBack()} sx={{ color: 'white', fontSize: 14, fontWeight: 'small', padding: "5px 13px 5px 15px", textTransform: 'none', backgroundColor: "#07b558", m: 1 }} size="small">Back</Button>
+  </Container>
+    </div>
+   
 
-      </div>
-      // { <div className="col-md-6">
-      //   {currentProduct ? (
-      //     <div>
-      //       <h4>Product</h4>
-      //       <div>
-      //         <label>
-      //           <strong>Name:</strong>
-      //         </label>{" "}
-      //         {currentProduct.name}
-      //       </div>
-      //       <div>
-      //         <label>
-      //           <strong>Description:</strong>
-      //         </label>{" "}
-      //         {currentProduct.description}
-      //       </div> 
-      //       <div>
-      //         <label>
-      //           <strong>Count:</strong>
-      //         </label>{" "}
-      //         {currentProduct.count}
-      //       </div> 
-      //       <div>
-      //         <label>
-      //           <strong>Price:</strong>
-      //         </label>{" "}
-      //         {currentProduct.price}
-      //       </div>            
-
-      //     </div>
-      //   ) : (
-      //     <div>
-      //       <br />
-      //       <p>Please click on a Product...</p>
-      //     </div>
-      //   )}
-      // </div> }
-    
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, Redirect ,Router } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import "./App.css";
@@ -50,8 +50,13 @@ const App = () => {
 
   return (
     <div>
+<<<<<<< HEAD
       <Navbar/>
 
+=======
+<Navbar/>
+{/* <br/> */}
+>>>>>>> ffa0428cf9cc03ad363649a0d453761d0c98ce30
       {/* <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
           <img  src={Logo} alt='' style={{height:70}}/>
@@ -138,7 +143,7 @@ const App = () => {
         
       </nav> */}
 
-      <div className="container mt-3">
+      <div >
         
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
