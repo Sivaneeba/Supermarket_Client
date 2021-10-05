@@ -50,13 +50,8 @@ const App = () => {
 
   return (
     <div>
-<<<<<<< HEAD
-      <Navbar/>
-
-=======
 <Navbar/>
 {/* <br/> */}
->>>>>>> ffa0428cf9cc03ad363649a0d453761d0c98ce30
       {/* <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
           <img  src={Logo} alt='' style={{height:70}}/>
