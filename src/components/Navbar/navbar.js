@@ -79,117 +79,119 @@ export default function PrimarySearchAppBar() {
   }, []);
 
   const logOut = () => {
-    AuthService.logout();    
-  };
-  
     AuthService.logout();
-  };
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+    window.location.href = "/";
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+//   AuthService.logout();
+// };
+const [anchorEl, setAnchorEl] = React.useState(null);
+const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+const isMenuOpen = Boolean(anchorEl);
+const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+const handleProfileMenuOpen = (event) => {
+  setAnchorEl(event.currentTarget);
+};
 
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-       {currentUser ?(<MenuItem onClick={handleMenuClose}><NavLink to={"/profile"} className="menu-btn">
-        {currentUser.username}
-      </NavLink></MenuItem>):("")}
-      {/* <MenuItem onClick={handleMenuClose} className="menu-btn">Profile</MenuItem> */}
-      <MenuItem onClick={handleMenuClose}>
-        <NavLink to="/login" onClick={logOut} className="menu-btn">
-          LogOut
-        </NavLink></MenuItem>
-    </Menu>
-  );
+const handleMobileMenuClose = () => {
+  setMobileMoreAnchorEl(null);
+};
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
+const handleMenuClose = () => {
+  setAnchorEl(null);
+  handleMobileMenuClose();
+};
+
+const handleMobileMenuOpen = (event) => {
+  setMobileMoreAnchorEl(event.currentTarget);
+};
+
+const menuId = 'primary-search-account-menu';
+const renderMenu = (
+  <Menu
+    anchorEl={anchorEl}
+    anchorOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    id={menuId}
+    keepMounted
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    open={isMenuOpen}
+    onClose={handleMenuClose}
+  >
+    {currentUser ? (<MenuItem onClick={handleMenuClose}><NavLink to={"/profile"} className="menu-btn">
+      {currentUser.username}
+    </NavLink></MenuItem>) : ("")}
+    {/* <MenuItem onClick={handleMenuClose} className="menu-btn">Profile</MenuItem> */}
+    <MenuItem onClick={logOut}>
+      {/* <NavLink to="/login" onClick={logOut} className="menu-btn"> */}
+        
+      {/* </NavLink> */}LogOut
       </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
+  </Menu>
+);
 
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: 'white', boxShadow: "1px 1px 10px 10px #F7F8FA" }}>
+const mobileMenuId = 'primary-search-account-menu-mobile';
+const renderMobileMenu = (
+  <Menu
+    anchorEl={mobileMoreAnchorEl}
+    anchorOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    id={mobileMenuId}
+    keepMounted
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    open={isMobileMenuOpen}
+    onClose={handleMobileMenuClose}
+  >
+    <MenuItem>
+      <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <Badge badgeContent={4} color="error">
+          <MailIcon />
+        </Badge>
+      </IconButton>
+      <p>Messages</p>
+    </MenuItem>
+    <MenuItem>
+      <IconButton
+        size="large"
+        aria-label="show 17 new notifications"
+        color="inherit"
+      >
+        <Badge badgeContent={17} color="error">
+          <NotificationsIcon />
+        </Badge>
+      </IconButton>
+      <p>Notifications</p>
+    </MenuItem>
+    <MenuItem onClick={handleProfileMenuOpen}>
+      <IconButton
+        size="large"
+        aria-label="account of current user"
+        aria-controls="primary-search-account-menu"
+        aria-haspopup="true"
+        color="inherit"
+      >
+        <AccountCircle />
+      </IconButton>
+      <p>Profile</p>
+    </MenuItem>
+  </Menu>
+);
+
+return (
+  <Box sx={{ flexGrow: 1 }}>
+    {/* <AppBar position="static" style={{ backgroundColor: 'white', boxShadow: "1px 1px 10px 10px #F7F8FA" }}>
         <Toolbar>
           <img src={Logo} alt='' style={{ height: 70 }} />
 
@@ -201,13 +203,13 @@ export default function PrimarySearchAppBar() {
           >
             Material-UI
           </Typography>
-          <Search>
-      <AppBar position="absolute" style={{ backgroundColor: 'white', }}>
-        <Toolbar>
-          <img src={Logo} alt='' style={{ height: 60 }} />
+          <Search> */}
+    <AppBar position="absolute" style={{ backgroundColor: 'white', }}>
+      <Toolbar>
+        <img src={Logo} alt='' style={{ height: 60 }} />
 
 
-          {/* <Search>
+        {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -216,19 +218,19 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search> */}
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <NavLink to={"/home"} exact className="btn" activeClassName="active">
-                Home
-              </NavLink>             
+        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <NavLink to={"/home"} exact className="btn" activeClassName="active">
+              Home
+            </NavLink>
 
-              {showAdminBoard ? (
+            {/* {showAdminBoard ? (
                 <div >
                   <Grid
                     container
@@ -251,143 +253,121 @@ export default function PrimarySearchAppBar() {
                     <NavLink to={"/admin/products"} className="btn">
                       Products
                     </NavLink>
+ */}
 
+            {showAdminBoard ? (
+              <div >
+                {/* <Grid
+                  container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                > */}
+                 <NavLink to={"/admin/addCategory"} className="btn">
+                    AddCategory
+                   </NavLink>
+                  <NavLink to={"/admin/categories"} className="btn">
+                    Categories
+                  </NavLink>
+
+
+                  <NavLink to={"/admin/addProduct"} className="btn">
+                    AddProduct
+                  </NavLink>
+
+
+                  <NavLink to={"/admin/products"} className="btn">
+                    Products
+                  </NavLink>
+
+                  <NavLink to={"/admin/users"} className="btn">
+                    Users
+                  </NavLink>
+                {/* </Grid> */}
+              </div>
+            ) : (
+              <div >
+
+                <NavLink to={"/categories"} className="btn">
+                  Product Categories
+                </NavLink>
+                <NavLink to={"/products"} className="btn">
+                  Products
+                </NavLink>
+
+              </div>
+            )}
+
+            {currentUserOnly && (
+              <NavLink to={"/user/carts"} className="btn">
+                Cart
               </NavLink>
 
-              {showAdminBoard && (
-                <NavLink to={"/admin/addCategory"} className="btn">
-                  AddCategory
+            )}
+
+            {currentUser ? (
+              <div >
+                
+
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    // color="#69A432" 
+                    sx={{ color: '#69A432' }}
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                {/* </Grid> */}
+              </div>
+            ) : (
+              <div >
+
+                <NavLink to={"/login"} className="btn">
+                  Login
                 </NavLink>
 
 
-              )}
 
-              {showAdminBoard ? (
-                <div >
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <NavLink to={"/admin/categories"} className="btn">
-                      Categories
-                    </NavLink>
+                <NavLink to={"/register"} className="btn">
+                  Sign Up
+                </NavLink>
+              </div>
+            )}</Grid>
 
+          {/* <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton> */}
+        </Box>
 
-                    <NavLink to={"/admin/addProduct"} className="btn">
-                      AddProduct
-                    </NavLink>
-
-
-                    <NavLink to={"/admin/products"} className="btn">
-                      Products
-                    </NavLink>
-
-                    <NavLink to={"/admin/users"} className="btn">
-                      Users
-                    </NavLink>
-                  </Grid>
-                </div>
-              ) : (
-                <div >
-
-                  <NavLink to={"/categories"} className="btn">
-                    Product Categories
-                  </NavLink>
-                  <NavLink to={"/products"} className="btn">
-                    Products
-                  </NavLink>                       
-
-                </div>
-              )}
-
-               {currentUserOnly && (
-               <NavLink to={"/user/carts"} className="btn">
-               Cart
-              </NavLink>
-
-              )}
-
-              {currentUser ? (
-                <div >
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <NavLink to={"/profile"} className="btn">
-                      {currentUser.username}
-                    </NavLink>                   
-
-                    <NavLink to="/login" onClick={logOut} className="btn">
-                      LogOut
-                    </NavLink>
-
-                    <NavLink to={"/user/carts"} className="btn">
-                      Cart
-                    </NavLink>
-
-                    <IconButton
-                      size="large"
-                      edge="end"
-                      aria-label="account of current user"
-                      aria-controls={menuId}
-                      aria-haspopup="true"
-                      onClick={handleProfileMenuOpen}
-                      // color="#69A432" 
-                      sx={{color:'#69A432'}}
-                    >
-                      <AccountCircle />
-                    </IconButton>
-                  </Grid>
-                </div>
-              ) : (
-                <div >
-
-                  <NavLink to={"/login"} className="btn">
-                    Login
-                  </NavLink>
-
-
-
-                  <NavLink to={"/register"} className="btn">
-                    Sign Up
-                  </NavLink>
-                </div>
-              )}</Grid>
-
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-        {/* <Categories/> */}
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
-  );
-}
+        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            color="inherit"
+          >
+            <MoreIcon />
+          </IconButton>
+        </Box>
+      </Toolbar>
+      {/* <Categories/> */}
+    </AppBar>
+    {renderMobileMenu}
+    {renderMenu}
+  </Box>
+);
+              }

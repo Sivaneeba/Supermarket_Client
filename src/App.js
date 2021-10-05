@@ -149,7 +149,7 @@ const App = () => {
           <Route exact path="/profile" component={Profile} />  
 
           <Route exact path="/user/carts" component={Cart}/>
-          <Route exact path="/user/categories/:id" component={ProductsList} />
+          <Route exact path="/user/categories/: id" component={ProductsList} />
 
           <Route exact path="/admin/addCategory" component={AddCategory} />          
           <Route exact path="/admin/products" component={ProductList} />

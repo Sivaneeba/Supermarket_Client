@@ -89,7 +89,14 @@ const ProductCategoryList = () => {
               </li>
             ))}
         </ul>
-        
+      
+         <select>
+              {categories.map((category, index) => (
+                <option key={index} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
       </div>
       <div className="col-md-6">
         {currentCategory ? (

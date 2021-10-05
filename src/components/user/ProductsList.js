@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-<<<<<<< HEAD:src/components/user/ProductsList.js
 import ProductCart from '../layout/productCart'
-import {Grid,Button} from '@material-ui/core/';
-=======
-import ProductCart from './layout/productCart'
 import { Grid, Button, Container } from '@material-ui/core/';
->>>>>>> ffa0428cf9cc03ad363649a0d453761d0c98ce30:src/components/ProductsList.js
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Paper from '@material-ui/core/Paper';
 import { styled } from '@material-ui/core/styles';
@@ -73,7 +68,7 @@ const ProductsList = props => {
       <Container maxWidth="lg">
 
       <h4>Products List</h4>
-
+{/* 
 <<<<<<< HEAD:src/components/user/ProductsList.js
           <Grid container direction="row" spacing={4}>
           {products &&
@@ -89,7 +84,7 @@ const ProductsList = props => {
               // </li>
           
   < Grid item xs={12} sm={6}md={6}lg={4} xl={3}> <ProductCart {...product}/> </Grid>
-=======
+======= */}
       <Grid container direction="row" spacing={4}>
         {products &&
           products.map((product, index) => (
@@ -102,7 +97,7 @@ const ProductsList = props => {
             // >
             //   {product.name}
             // </li>
->>>>>>> ffa0428cf9cc03ad363649a0d453761d0c98ce30:src/components/ProductsList.js
+// >>>>>>> ffa0428cf9cc03ad363649a0d453761d0c98ce30:src/components/ProductsList.js
 
             < Grid item xs={12} sm={6} md={4} lg={3} xl={3}> <ProductCart  {...product} /> </Grid>
 

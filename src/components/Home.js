@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-
+import Products from './Products'
 import UserService from "../services/user.service";
 import HeroImage from "./Home/HeroImage/heroimage"
+import { Container } from '@material-ui/core'
 const Home = () => {
   const [content, setContent] = useState("");
 
@@ -25,7 +26,10 @@ const Home = () => {
     <div className="container">
       <header className="jumbotron">
         {/* <h3>{content}</h3> */}
-        <HeroImage/>
+        <HeroImage />
+        <Container maxWidth="lg">
+          <Products />
+        </Container>
       </header>
     </div>
   );
