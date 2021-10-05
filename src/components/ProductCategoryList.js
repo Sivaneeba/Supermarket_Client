@@ -85,7 +85,7 @@ const ProductCategoryList = () => {
                 }                
                 key={index}
               >
-                <Link to={`categories/${category.id}`}>{category.name}</Link>
+                <Link to={`user/categories/${category.id}`}>{category.name}</Link>
               </li>
             ))}
         </ul>

@@ -22,7 +22,7 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(""); 
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -46,7 +46,7 @@ const Login = (props) => {
       AuthService.login(username, password).then(
         () => {
           props.history.push("/profile");
-          window.location.reload();
+          window.location.reload();         
         },
         (error) => {
           const resMessage =

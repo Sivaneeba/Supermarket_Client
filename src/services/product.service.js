@@ -1,7 +1,7 @@
 import http from "../http-common";
 
-const getAll = () => {
-  return http.get("/products");
+const getAll = (params) => {
+  return http.get("/products", { params });
 };
 
 const get = id => {
@@ -54,11 +54,11 @@ const findByName= name => {
 
 const getAllPC = () => {
     return http.get("/proCategories");
-  };
+};
   
-  const getPC = id => {
+const getPC = id => {
     return http.get(`/proCategories/${id}`);
-  };
+};
   
 
 // eslint-disable-next-line import/no-anonymous-default-export

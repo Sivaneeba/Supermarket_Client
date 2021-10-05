@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ProductService from "../../services/product.service";
 import { Pagination } from '@material-ui/core';
+import productService from "../services/product.service";
 
-const ProductList = () => {
+const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -40,7 +40,7 @@ const ProductList = () => {
 
   const retrieveProducts = () => {
     const params = getRequestParams(searchName, page, pageSize);
-    ProductService.getAll(params)
+    productService.getAll(params)
       .then(response => {
         const { products, totalPages } = response.data;
         setProducts(products);
@@ -63,21 +63,10 @@ const ProductList = () => {
   const setActiveProduct = (product, index) => {
     setCurrentProduct(product);
     setCurrentIndex(index);
-  };
-
-  const removeAllProducts = () => {
-    ProductService.removeAll()
-      .then(response => {
-        console.log(response.data);
-        refreshList();
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  }; 
 
   const findByName = () => {
-    ProductService.findByName(searchName)
+    productService.findByName(searchName)
       .then(response => {
         setProducts(response.data);
         console.log(response.data);
@@ -158,13 +147,7 @@ const ProductList = () => {
               </li>
             ))}
         </ul>
-
-        <button
-          className="m-3 btn btn-sm btn-danger"
-          onClick={removeAllProducts}
-        >
-          Remove All
-        </button>
+        
       </div>
       <div className="col-md-6">
         
@@ -206,13 +189,7 @@ const ProductList = () => {
                 <strong>CategoryId:</strong>
               </label>{" "}
               {currentProduct.productCategoryId}
-            </div>   
-
-            <Link
-              to={"/admin/products/" + currentProduct.id}             
-            >
-              Edit
-            </Link>
+            </div>              
           </div>
         ) : (
           <div>
@@ -227,4 +204,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default Products;

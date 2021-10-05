@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import ProductService from "../services/product.service";
-import PCategoryService from "../services/pCategory.service";
 import { useHistory } from "react-router-dom";
-import ProductCart from './layout/productCart'
+import ProductCart from '../layout/productCart'
 import {Grid,Button} from '@material-ui/core/';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Paper from '@material-ui/core/Paper';
 import { styled } from '@material-ui/core/styles';
+import pCategoryService from "../../services/pCategory.service";
+import productService from "../../services/product.service";
+
 const ProductsList = props => {
   const [products, setProducts] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchName, setSearchName] = useState("");
+  
   useEffect(() => {
     retrieveProducts(props.match.params.id);
   }, [props.match.params.id]);
@@ -22,7 +24,7 @@ const ProductsList = props => {
   };
 
   const retrieveProducts = id => {
-    PCategoryService.getCP(id)
+    pCategoryService.getCP(id)
       .then(response => {
         setProducts(response.data.products);
         console.log(response.data.products);
@@ -44,7 +46,7 @@ const ProductsList = props => {
   };  
 
   const findByName = () => {
-    ProductService.findByName(searchName)
+    productService.findByName(searchName)
       .then(response => {
         setProducts(response.data);
         console.log(response.data);
@@ -79,7 +81,7 @@ const ProductsList = props => {
               //   {product.name}
               // </li>
           
-  < Grid item xs={12} sm={6}md={6}lg={4} xl={3}> <ProductCart  {...product}/> </Grid>
+  < Grid item xs={12} sm={6}md={6}lg={4} xl={3}> <ProductCart {...product}/> </Grid>
 
 
                          ))}

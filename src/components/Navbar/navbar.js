@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import {Box,Grid} from '@material-ui/core/';
+import { Box, Grid } from '@material-ui/core/';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -17,8 +17,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Logo from '../../assets/logo.png'
 import AuthService from "../../services/auth.service";
-import  { useState, useEffect } from "react";
-import { useHistory,NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useHistory, NavLink } from "react-router-dom";
 
 import './navbar.css'
 const Search = styled('div')(({ theme }) => ({
@@ -62,22 +62,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-    const [showAdminBoard, setShowAdminBoard] = useState(false);
-    const [currentUser, setCurrentUser] = useState(undefined);
-    let history = useHistory();
-const [btn,activebtn]=useState(false)
-    useEffect(() => {
-      const user = AuthService.getCurrentUser();
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUserOnly, setCurrentUserOnly] = useState(false);
+  let history = useHistory();
+  const [btn, activebtn] = useState(false)
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      setCurrentUser(user);
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      setCurrentUserOnly(user.roles.includes("ROLE_USER"));
+    }
+  }, []);
+
+  const logOut = () => {
+    AuthService.logout();    
+  };
   
-      if (user) {
-        setCurrentUser(user);      
-        setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-      }
-    }, []);
-  
-    const logOut = () => {
-      AuthService.logout();
-    };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -177,9 +180,9 @@ const [btn,activebtn]=useState(false)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{backgroundColor:'white', boxShadow: "1px 1px 10px 10px #F7F8FA"}}>
+      <AppBar position="static" style={{ backgroundColor: 'white', boxShadow: "1px 1px 10px 10px #F7F8FA" }}>
         <Toolbar>
-        <img  src={Logo} alt='' style={{height:70}}/>
+          <img src={Logo} alt='' style={{ height: 70 }} />
 
           <Typography
             variant="h6"
@@ -200,96 +203,95 @@ const [btn,activebtn]=useState(false)
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Grid
-  container
-  direction="row"
-  justifyContent="center"
-  alignItems="center"
->
-          <NavLink to={"/home"} exact className="btn" activeClassName="active">
-              Home
-            </NavLink>
-                              
-          {showAdminBoard && (            
-                <NavLink to={"/admin/addCategory"} className="btn">
-                  AddCategory
-                </NavLink>
-                                      
-           
-          )}
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <NavLink to={"/home"} exact className="btn" activeClassName="active">
+                Home
+              </NavLink>             
 
-        {showAdminBoard ? (
-          <div > 
-               <Grid
-  container
-  direction="row"
-  justifyContent="center"
-  alignItems="center"
->
-                <NavLink to={"/admin/categories"} className="btn">
-                  Categories
-                </NavLink>
-              
-              
-                <NavLink to={"/admin/addProduct"} className="btn">
-                  AddProduct
-                </NavLink>
-                           
-              
-                <NavLink to={"/admin/products"} className="btn">
-                  Products
-                </NavLink>
-              
-                <NavLink to={"/admin/users"} className="btn">
-                  Users
-                </NavLink>
-              </Grid>                   
-          </div>
-        ) : (
-          <div >
-            
-            <NavLink to={"/categories"} className="btn">
-              Product Categories
-            </NavLink>
-          
-          </div>
-        )}
-          
+              {showAdminBoard ? (
+                <div >
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <NavLink to={"/admin/addCategory"} className="btn">
+                    AddCategory
+                   </NavLink>
 
-        {currentUser ? (
-          <div >
-               <Grid
-  container
-  direction="row"
-  justifyContent="center"
-  alignItems="center"
->
-              <NavLink to={"/profile"} className="btn">
-                {currentUser.username}
-              </NavLink>
-              <NavLink to={"/user/carts"} className="btn">
-                Cart
-              </NavLink>
-            
-              <NavLink to="/login"  onClick={logOut} className="btn">
-                LogOut
-              </NavLink>
- </Grid>           
-          </div>
-        ) : (
-          <div >
-           
-              <NavLink to={"/login"} className="btn">
-                Login
-              </NavLink>
-            
+                    <NavLink to={"/admin/categories"} className="btn">
+                      Categories
+                    </NavLink>
 
-            
-              <NavLink to={"/register"} className="btn">
-                Sign Up
+                    <NavLink to={"/admin/addProduct"} className="btn">
+                      AddProduct
+                    </NavLink>
+
+                    <NavLink to={"/admin/products"} className="btn">
+                      Products
+                    </NavLink>
+
+                    <NavLink to={"/admin/users"} className="btn">
+                      Users
+                    </NavLink>
+                  </Grid>
+                </div>
+              ) : (
+                <div >
+
+                  <NavLink to={"/categories"} className="btn">
+                    Product Categories
+                  </NavLink>
+                  <NavLink to={"/products"} className="btn">
+                    Products
+                  </NavLink>                       
+
+                </div>
+              )}
+
+               {currentUserOnly && (
+               <NavLink to={"/user/carts"} className="btn">
+               Cart
               </NavLink>
-          </div>
-        )}</Grid>
+
+              )}
+
+              {currentUser ? (
+                <div >
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <NavLink to={"/profile"} className="btn">
+                      {currentUser.username}
+                    </NavLink>                   
+
+                    <NavLink to="/login" onClick={logOut} className="btn">
+                      LogOut
+                    </NavLink>
+                  </Grid>
+                </div>
+              ) : (
+                <div >
+
+                  <NavLink to={"/login"} className="btn">
+                    Login
+                  </NavLink>
+
+                  <NavLink to={"/register"} className="btn">
+                    Sign Up
+                  </NavLink>
+                </div>
+              )}</Grid>
+
             <IconButton
               size="large"
               edge="end"
@@ -302,7 +304,7 @@ const [btn,activebtn]=useState(false)
               <AccountCircle />
             </IconButton>
           </Box>
-         
+
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -314,7 +316,7 @@ const [btn,activebtn]=useState(false)
             >
               <MoreIcon />
             </IconButton>
-          </Box> 
+          </Box>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

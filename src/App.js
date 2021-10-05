@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import "./App.css";
-import Logo from '../src/assets/logo.png'
 import AuthService from "./services/auth.service";
 import { createBrowserHistory } from "history";
 
@@ -15,7 +14,7 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import ProductCategoryList from "./components/ProductCategoryList";
-import ProductsList from "./components/ProductsList";
+
 import ProductList from "./components/admin/ProductList";
 import Product from "./components/admin/Product";
 import UserList from "./components/admin/UserList";
@@ -26,29 +25,33 @@ import AddCategory from "./components/admin/AddCategory";
 import Navbar from './components/Navbar/navbar'
 import Cart from "./components/user/Cart";
 import Admin from './components/admin/UserDashbord/DashboardLayout'
+import ProductsList from "./components/user/ProductsList";
+import Products from "./components/Products";
 const hist = createBrowserHistory();
 
 const App = () => {  
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
+  // const [showAdminBoard, setShowAdminBoard] = useState(false);
+  // const [currentUser, setCurrentUser] = useState(undefined);
+  // const [currentUserOnly, setCurrentUserOnly] = useState(false);
 
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
+  // useEffect(() => {
+  //   const user = AuthService.getCurrentUser();
 
-    if (user) {
-      setCurrentUser(user);      
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-    }
-  }, []);
+  //   if (user) {
+  //     setCurrentUser(user);      
+  //     setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+  //     setCurrentUserOnly(user.roles.includes("ROLE_USER"));
+  //   }
+  // }, []);
 
-  const logOut = () => {
-    AuthService.logout();
-  };
+  // const logOut = () => {
+  //   AuthService.logout();
+  // };
 
   return (
     <div>
-<Navbar/>
-<br/>
+      <Navbar/>
+
       {/* <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
           <img  src={Logo} alt='' style={{height:70}}/>
@@ -139,25 +142,29 @@ const App = () => {
         
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route exact path="/categories" component={ProductCategoryList} />
-          <Route exact path="/categories/:id" component={ProductsList} />
+          <Route exact path="/products" component={Products} />
+          <Route exact path="/profile" component={Profile} />  
+
+          <Route exact path="/user/carts" component={Cart}/>
+          <Route exact path="/user/categories/:id" component={ProductsList} />
+
           <Route exact path="/admin/addCategory" component={AddCategory} />          
           <Route exact path="/admin/products" component={ProductList} />
           <Route exact path="/admin/products/:id" component={Product} />
           <Route exact path="/admin/categories" component={CategoryList} />
           <Route exact path="/admin/categories/:id" component={Category} />
           <Route exact path="/admin/addProduct" component={AddProduct} />
-          <Route exact path="/admin/users" component={UserList} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/login_new" component={LoginNew} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/profile" component={Profile} />  
-          <Route exact path="/user/carts" component={Cart}/>        
+          <Route exact path="/admin/users" component={UserList} />          
+          <Route exact path="/login_new" component={LoginNew} />          
+          
+                  
           <Router history={hist}>
                 <Switch>
                     <Route path="/Adashboard" component={Admin} />
-                    <Redirect from="/d" to="/Adashboard" />
-                    
+                    <Redirect from="/d" to="/Adashboard" />                    
                 </Switch>
             </Router>
         </Switch>

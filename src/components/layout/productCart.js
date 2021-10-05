@@ -9,7 +9,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import authService from "../../services/auth.service";
 import cartService from "../../services/cart.service";
 
-
 export default function BasicCard(props) {
     const currentUser = authService.getCurrentUser();
     let userId = currentUser.id;
